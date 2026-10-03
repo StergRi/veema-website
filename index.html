@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Veema – Route Planner & Multi-Stop Route Optimization</title>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="Plan and optimize multi-stop routes with Veema. Organize stops, search addresses and places, navigate with turn-by-turn guidance, save routes, and export PDF or CSV reports.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://veema.app/">
+  <meta name="theme-color" content="#ffffff">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Veema">
+  <meta property="og:title" content="Veema – Route Planner & Multi-Stop Route Optimization">
+  <meta property="og:description" content="Plan and optimize multi-stop routes with Veema. Organize stops, search addresses and places, navigate with turn-by-turn guidance, save routes, and export PDF or CSV reports.">
+  <meta property="og:url" content="https://veema.app/">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Veema – Route Planner & Multi-Stop Route Optimization">
+  <meta name="twitter:description" content="Plan and optimize multi-stop routes with Veema. Organize stops, search addresses and places, navigate with turn-by-turn guidance, save routes, and export PDF or CSV reports.">
+
+  <meta name="apple-itunes-app" content="app-id=1424376233">
+  <link rel="icon" href="veema-icon.jpeg">
+  <link rel="apple-touch-icon" href="veema-icon.jpeg">
+
+  
+  
+  
+  <style>
+    :root {
+      --text:#111827; --muted:#667085; --line:#e8ebf0;
+      --bg:#fff; --soft:#f6f8fb; --accent:#111827;
+      --max:1080px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",
+      "Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--text); background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+    }
+    a { color:inherit; text-decoration:none; }
+    .wrap { max-width:var(--max); margin:auto; padding:0 24px; }
+    nav { height:72px; display:flex; align-items:center; justify-content:space-between; }
+    .brand { font-size:22px; font-weight:750; letter-spacing:-.04em; display:flex; align-items:center; gap:10px; }
+    .brand-icon { width:34px; height:34px; border-radius:9px; object-fit:cover; box-shadow:0 3px 10px rgba(17,24,39,.12); }
+    .hero-app-icon { width:92px; height:92px; border-radius:24px; object-fit:cover; margin-bottom:24px; box-shadow:0 14px 35px rgba(70,55,210,.22); }
+    nav .links { display:flex; gap:26px; color:#667085; font-size:14px; }
+    nav .links a:hover { color:#111827; }
+    .hero { padding:92px 0 90px; text-align:center; }
+    .eyebrow { font-size:14px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#667085; }
+    h1 { margin:14px auto 18px; max-width:820px; font-size:clamp(48px,8vw,86px); line-height:.98; letter-spacing:-.065em; }
+    .hero p { max-width:650px; margin:0 auto 30px; color:var(--muted); font-size:20px; line-height:1.5; }
+    .button {
+      display:inline-flex; align-items:center; justify-content:center; padding:14px 21px;
+      border-radius:999px; background:#111827; color:#fff; font-weight:650; font-size:15px;
+      box-shadow:0 8px 24px rgba(17,24,39,.12);
+    }
+    .button:hover { transform:translateY(-1px); }
+
+    section { padding:88px 0; border-top:1px solid var(--line); }
+    .section-head { max-width:650px; margin-bottom:42px; }
+    h2 { font-size:42px; letter-spacing:-.045em; margin:0 0 12px; }
+    .section-head p { margin:0; color:var(--muted); font-size:18px; line-height:1.6; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .feature { padding:28px; border:1px solid var(--line); border-radius:22px; background:#fff; }
+    .icon { width:42px;height:42px;border-radius:13px;background:#f0f2f5;display:grid;place-items:center;
+      font-size:19px;margin-bottom:22px; }
+    .feature h3 { margin:0 0 9px; font-size:20px; letter-spacing:-.02em; }
+    .feature p { margin:0; color:var(--muted); line-height:1.55; font-size:15px; }
+    .cta { background:var(--soft); border-radius:30px; padding:64px 30px; text-align:center; }
+    .cta p { color:var(--muted); max-width:560px; margin:0 auto 26px; line-height:1.6; }
+    footer { padding:35px 0 45px; color:#7a8494; font-size:13px; }
+    footer .foot { display:flex; justify-content:space-between; gap:20px; align-items:center; }
+    footer .footlinks { display:flex; gap:20px; }
+    @media(max-width:760px){
+      nav .links { display:none; }
+      .hero { padding:65px 0 65px; }
+      section { padding:65px 0; }
+      .grid { grid-template-columns:1fr; }
+      h2 { font-size:35px; }
+      footer .foot { flex-direction:column; align-items:flex-start; }
+    }
+  
+    .legal-card { display:block; transition:transform .18s ease, box-shadow .18s ease; }
+    .legal-card:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(16,24,40,.08); }
+    .legal-overlay { position:fixed; inset:0; z-index:100; display:none; }
+    .legal-overlay:target { display:block; }
+    .legal-backdrop { position:absolute; inset:0; background:rgba(15,23,42,.45); backdrop-filter:blur(8px); }
+    .legal-sheet { position:absolute; inset:4vh max(18px,calc((100vw - 900px)/2)); background:#fff; border-radius:28px; overflow:auto; box-shadow:0 30px 90px rgba(0,0,0,.22); }
+    .legal-content { max-width:760px; margin:auto; padding:58px 42px 80px; }
+    .legal-content h1 { font-size:44px; margin:0 0 8px; letter-spacing:-.045em; }
+    .legal-content h2 { font-size:24px; margin:38px 0 12px; letter-spacing:-.025em; }
+    .legal-content h3 { font-size:18px; margin:25px 0 8px; }
+    .legal-content p { color:#4b5563; line-height:1.72; margin:10px 0; font-size:15px; }
+    .legal-content .updated { color:#8a94a3; margin-bottom:30px; }
+    .legal-content a { text-decoration:underline; }
+    .legal-close { position:sticky; float:right; top:18px; margin:18px 18px 0 0; z-index:2; width:38px; height:38px; border-radius:50%; background:#f0f2f5; display:grid; place-items:center; font-size:26px; line-height:1; }
+    @media(max-width:760px){ .legal-sheet{inset:12px;border-radius:22px}.legal-content{padding:50px 24px 65px}.legal-content h1{font-size:36px} }
+    .audience{padding:100px 0;background:#0d0e12;color:#fff;text-align:center}
+    .audience-inner{max-width:850px}
+    .audience h2{font-size:clamp(38px,5vw,64px);line-height:1.02;letter-spacing:-.045em;margin:12px auto 22px}
+    .audience p{max-width:720px;margin:auto;color:#b9bdc7;font-size:19px;line-height:1.65}
+    .audience .eyebrow{color:#bca7ff}
+    .showcase{padding:110px 0;background:#f7f7f9}
+    .showcase .section-head{text-align:center;max-width:760px;margin:0 auto 60px}
+    .showcase .section-head h2{font-size:clamp(38px,5vw,58px);letter-spacing:-.045em;margin:10px 0 16px}
+    .showcase .section-head p{font-size:18px;color:#667085}
+    .showcase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+    .shot-card{background:#fff;border-radius:28px;padding:28px 22px 25px;box-shadow:0 14px 50px rgba(16,24,40,.07)}
+    .shot-phone{width:min(100%,270px);aspect-ratio:707/1450;margin:0 auto 28px;border:7px solid #15171b;border-radius:36px;overflow:hidden;background:#111;box-shadow:0 18px 40px rgba(0,0,0,.16)}
+    .shot-phone img{width:100%;height:100%;object-fit:cover;display:block}
+    .shot-copy span{font-size:12px;font-weight:800;letter-spacing:.12em;color:#7b55e7}
+    .shot-copy h3{font-size:22px;margin:7px 0 8px}
+    .shot-copy p{color:#667085;line-height:1.55;margin:0}
+    .carplay-placeholder{aspect-ratio:1.45/1;width:100%;display:grid;place-items:center;margin:42px auto 48px}
+    .carplay-screen{width:100%;height:100%;border:9px solid #15171b;border-radius:30px;background:linear-gradient(145deg,#262832,#0f1015);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 18px 40px rgba(0,0,0,.16)}
+    .carplay-screen strong{font-size:28px}
+    .carplay-screen span{font-size:13px;color:#aaaeb8;margin-top:7px}
+    footer{padding:42px 0 30px;border-top:1px solid #e8e8ec;background:#fff}
+    .footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:30px}
+    .footer-brand{display:flex;flex-direction:column;gap:7px}
+    .footer-brand span,.apple-note{font-size:12px;color:#8a94a3}
+    .footer-links{display:flex;flex-wrap:wrap;gap:18px;font-size:13px}
+    .footer-links a:hover{text-decoration:underline}
+    .apple-note{margin-top:28px;line-height:1.5}
+    @media(max-width:900px){.showcase-grid{grid-template-columns:1fr;max-width:520px;margin:auto}.shot-card{padding:26px}.footer-inner{flex-direction:column}}
+
+
+    .feature-icon{
+      width:42px;height:42px;border-radius:13px;background:#f0ebff;color:#6c3df0;
+      display:grid;place-items:center;font-size:21px;font-weight:750;margin-bottom:22px;
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Arial,sans-serif;
+    }
+
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Veema",
+  "url": "https://veema.app/",
+  "installUrl": "https://apps.apple.com/gr/app/veema-route-planner/id1424376233",
+  "operatingSystem": "iOS",
+  "applicationCategory": "NavigationApplication",
+  "description": "Veema is an iPhone route planner for organizing and optimizing multi-stop routes, searching for stops and places, navigating with turn-by-turn guidance, saving routes, and exporting route information.",
+  "featureList": [
+    "Multi-stop route planning",
+    "Route optimization",
+    "Address, place and intersection search",
+    "Turn-by-turn navigation",
+    "Route and location storage",
+    "PDF and CSV exports",
+    "Route reports",
+    "CarPlay support"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Theodora Magiona"
+  }
+}
+</script>
+</head>
+<body>
+  <header class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-icon" src="veema-icon.jpeg" alt="">Veema</a>
+      <div class="links">
+        <a href="#features">Features</a>
+        <a href="mailto:support@veema.app">Support</a>
+        <a href="#privacy-policy">Privacy</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" style="border-top:0">
+      <div class="wrap">
+        <img class="hero-app-icon" src="veema-icon.jpeg" alt="Veema app icon"><div class="eyebrow">Route Planner for iPhone</div>
+        <h1>Plan smarter.<br>Drive fewer miles.</h1>
+        <p>Plan and optimize multi-stop routes, then navigate them directly in Veema with built-in turn-by-turn navigation.</p>
+      <a class="button" href="https://apps.apple.com/gr/app/veema-route-planner/id1424376233" target="_blank" rel="noopener">View on the App Store</a>
+        
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Everything you need for multi-stop routes.</h2>
+          <p>Designed for people who need to organize several destinations and get through their day efficiently.</p>
+        </div>
+        <div class="grid">
+          <article class="feature"><div class="feature-icon">↗</div><h3>Route optimization</h3><p>Organize multiple stops into a more efficient route and spend less time planning.</p></article>
+          <article class="feature"><div class="feature-icon">+</div><h3>Easy stop management</h3><p>Add, reorder and manage stops while keeping the entire route clear and organized.</p></article>
+          <article class="feature"><div class="feature-icon">➜</div><h3>Built-in navigation</h3><p>Start turn-by-turn guidance directly from your route without leaving Veema.</p></article>
+          <article class="feature"><div class="feature-icon">⌕</div><h3>Powerful search</h3><p>Find addresses, nearby places, points of interest and street intersections when building a route.</p></article>
+          <article class="feature"><div class="feature-icon">▣</div><h3>Routes & storage</h3><p>Save routes, locations, contacts and related information so they are ready when you need them.</p></article>
+          <article class="feature"><div class="feature-icon">⇧</div><h3>Exports & reports</h3><p>Export route information in PDF and CSV formats and review useful route statistics and reports.</p></article>
+    </div>
+      </div>
+    </section>
+
+    
+    <section class="audience">
+      <div class="wrap audience-inner">
+        <div class="eyebrow">Made for multi-stop days</div>
+        <h2>Built for routes with more than one destination.</h2>
+        <p>Whether you’re making deliveries, visiting customers, managing service calls or simply planning a day with multiple stops, Veema keeps the entire route organized in one place.</p>
+      </div>
+    </section>
+
+    <section id="showcase" class="showcase">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">From planning to arrival</div>
+          <h2>Plan. Navigate. Keep moving.</h2>
+          <p>Build your route, optimize your stops and follow turn-by-turn guidance directly in Veema.</p>
+        </div>
+        <div class="showcase-grid">
+          <article class="shot-card">
+            <div class="shot-phone"><img src="veema-plan.jpeg" alt="Veema multi-stop route planning"></div>
+            <div class="shot-copy"><span>01</span><h3>Plan & optimize</h3><p>Create a multi-stop route and organize the order before you start driving.</p></div>
+          </article>
+          <article class="shot-card">
+            <div class="shot-phone"><img src="veema-navigation.jpeg" alt="Veema turn-by-turn navigation showing an active route"></div>
+            <div class="shot-copy"><span>02</span><h3>Navigate in Veema</h3><p>Follow your route with built-in turn-by-turn guidance, ETA and remaining distance.</p></div>
+          </article>
+          <article class="shot-card coming-soon">
+            <div class="carplay-placeholder"><div class="carplay-screen"><strong>CarPlay</strong><span>Screenshot coming next</span></div></div>
+            <div class="shot-copy"><span>03</span><h3>Continue with CarPlay</h3><p>Access supported route and navigation features on a compatible CarPlay display.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Privacy & Terms</h2>
+          <p>Read the policies governing Veema and how app data is handled.</p>
+        </div>
+        <div class="grid">
+          <a class="feature legal-card" href="#privacy-policy">
+            <h3>Privacy Policy</h3><p>How information and app data are handled.</p>
+          </a>
+          <a class="feature legal-card" href="#terms-of-service">
+            <h3>Terms of Service</h3><p>Terms governing use of the app and its services.</p>
+          </a>
+          <article class="feature">
+            <h3>Feedback</h3><p><a href="mailto:feedback@veema.app"><u>feedback@veema.app</u></a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="terms-of-service" class="legal-overlay">
+    <a class="legal-backdrop" href="#privacy" aria-label="Close"></a>
+    <article class="legal-sheet"><a class="legal-close" href="#privacy">×</a>
+      <div class="legal-content"><h1>Terms of Service</h1>
+<p class="updated">Last updated: October 3, 2026</p>
+<p>Welcome to Veema (the “App”), developed and operated by Theodora Magiona (“we”, “our”, or “us”).</p>
+<p>These Terms of Service (“Terms”) explain the conditions for using Veema, including its route planning, navigation, CarPlay, file management, and related features.</p>
+<h2>1. These Terms and Apple’s Licence Agreement</h2>
+<p>Please read these Terms before using the App. By using the App after these Terms have been made available to you, you agree to them to the extent permitted by applicable law. Where express acceptance is required, we will request it.</p>
+<p>The App is also licensed under Apple’s Standard End User License Agreement, available at:</p>
+<p><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">https://www.apple.com/legal/internet-services/itunes/dev/stdeula/</a></p>
+<p>These Terms supplement that agreement and do not replace it or restrict any mandatory rights you have under applicable law.</p>
+<p>Our Privacy Policy separately explains how personal information is handled. Acceptance of these Terms does not replace any separate consent required for processing personal information.</p>
+<h2>2. Eligibility</h2>
+<p>You must be at least 16 years old to use the App. If you have not reached the age at which you can legally enter into this agreement in your country, you must have the necessary permission from a parent or legal guardian.</p>
+<p>Permission to use the App does not establish eligibility to drive. Drivers must hold the required licence and comply with applicable driving laws.</p>
+<h2>3. Use of the App</h2>
+<p>Veema provides tools for planning and organizing routes and stops, navigation, file management, reports, and related logistics tasks. Certain features are available through Apple CarPlay on compatible systems.</p>
+<p>You may use the App for personal or business purposes, subject to your selected plan, these Terms, and applicable law.</p>
+<p>You must not:</p>
+<p>Use the App for unlawful, fraudulent, or harmful purposes.</p>
+<p>Attempt to gain unauthorized access to data, accounts, or services.</p>
+<p>Circumvent purchase restrictions or security mechanisms.</p>
+<p>Interfere with the operation or security of the App or connected services.</p>
+<p>Copy, reverse-engineer, decompile, or disassemble the App, except where permitted by applicable law or an applicable open-source licence.</p>
+<h2>4. Navigation and Driving Safety</h2>
+<p>Route planning and navigation features are aids to your judgment. They do not replace your responsibility to drive safely and lawfully.</p>
+<p>Always follow road signs, traffic signals, legal restrictions, and actual road conditions, even when they differ from the App’s instructions.</p>
+<p>Plan routes and make adjustments that require attention before driving or after stopping in a safe, lawful place. Do not interact with the App, your phone, or your vehicle’s display in a way that distracts you from driving.</p>
+<p>You are responsible for checking that a suggested route, stopping point, parking location, or pickup or delivery location is safe, accessible, and lawful.</p>
+<p>Unless a feature expressly states otherwise, routes are not tailored to vehicle height, width, length, weight, hazardous loads, or restrictions specific to trucks, buses, or other vehicle types. Do not assume that a suggested route is suitable for your vehicle.</p>
+<p>The App is not an emergency service.</p>
+<h2>5. Accuracy and Availability of Information</h2>
+<p>Maps, search results, points of interest, intersection locations, directions, estimated arrival times, weather information, and other content may depend on third-party data and services.</p>
+<p>Information may be incomplete, inaccurate, delayed, or unavailable. Road closures, access restrictions, business details, and other conditions may change before they are reflected in the App.</p>
+<p>Location and guidance accuracy may be affected by GPS reception, device settings, connectivity, buildings, terrain, and other conditions.</p>
+<p>Route optimization does not guarantee the shortest, fastest, safest, or most suitable route in every situation. Review suggested routes and stops before relying on them.</p>
+<p>Reports and statistics depend on the available data and should be checked before being used for business, regulatory, or other consequential decisions.</p>
+<h2>6. Apple CarPlay</h2>
+<p>Veema supports selected features through Apple CarPlay, including route and stop information and supported navigation functions.</p>
+<p>CarPlay requires a compatible iPhone and vehicle or aftermarket system. Feature availability and behavior may vary by device, vehicle, operating system, region, permissions, and connection.</p>
+<p>Some functions available on the iPhone may be limited or unavailable through CarPlay. Guidance may be interrupted by disconnections, location-service interruptions, or other technical conditions.</p>
+<p>CarPlay does not remove the driver’s responsibility to remain attentive and comply with the safety requirements in these Terms. If guidance becomes unavailable or appears incorrect, continue driving safely and stop in a suitable place before troubleshooting.</p>
+<h2>7. Devices, Accounts, and Permissions</h2>
+<p>Some features require an Apple Account, iCloud, an internet connection, or permissions such as location access.</p>
+<p>You are responsible for securing your devices and accounts and for granting only the access you intend to provide. Do not share credentials or access with unauthorized people.</p>
+<p>Disabling permissions or services may limit related functionality. Mobile data and other charges from your service providers may apply.</p>
+<h2>8. Subscriptions and Payments</h2>
+<p>Veema offers free and paid options, which may include Bronze, Silver, and Lifetime access. The purchase screen describes the applicable price, billing period, and included features.</p>
+<p>Purchases are processed through Apple’s in-app purchase system and are subject to Apple’s applicable payment terms.</p>
+<p>Subscriptions renew automatically unless canceled in accordance with the terms shown at purchase. You can manage or cancel a subscription through your Apple Account’s subscription settings.</p>
+<p>Deleting the App or ceasing to use it does not cancel a subscription.</p>
+<p>Lifetime access is a one-time purchase rather than a recurring subscription. Its scope is the entitlement described at the time of purchase; these Terms do not reduce rights already acquired through that purchase.</p>
+<p>Refund requests for App Store purchases can be submitted through Apple’s refund process. Nothing in these Terms excludes any statutory refund or other consumer rights.</p>
+<p>We do not receive or store your complete payment-card details.</p>
+<h2>9. Local Storage, iCloud, and Sharing</h2>
+<p>The App may store files on your device and use Apple iCloud to synchronize supported data across devices.</p>
+<p>Cloud functionality depends on your Apple Account, available storage, device settings, connectivity, and Apple’s services. Synchronization may be delayed or interrupted and should not be treated as a substitute for independent backups of important files.</p>
+<p>Sharing and team features make selected information available to the people you choose to share it with. Review recipients and permissions carefully. Removing access may not delete copies that recipients have already exported or saved.</p>
+<p>Our Privacy Policy describes how information is handled in connection with these features.</p>
+<h2>10. Your Content and Privacy</h2>
+<p>You retain ownership of the routes, locations, contacts, reports, and other content you create or import.</p>
+<p>You must have the necessary rights and lawful authority to collect, use, and share that content, particularly where it contains information about customers, passengers, employees, or other individuals.</p>
+<p>You authorize the storage, processing, and transmission of your content only as necessary to carry out the functions you choose, such as saving, synchronization, export, and sharing, as described in our Privacy Policy. This does not transfer ownership of your content to us.</p>
+<p>You must not use the App to store or share unlawful content or infringe another person’s rights.</p>
+<h2>11. Intellectual Property and Third-Party Services</h2>
+<p>The App’s source code, design, branding, and original content belong to the Developer or their respective licensors. Your rights to use the App are governed by the applicable licence agreement.</p>
+<p>Apple, CarPlay, and other third-party names and trademarks belong to their respective owners.</p>
+<p>Features using Apple Maps, iCloud, or other third-party services depend on those services and are subject to their applicable terms. Availability and functionality may change for reasons outside our control.</p>
+<h2>12. Updates and Changes to Features</h2>
+<p>We may update the App to improve functionality, address security or technical issues, comply with legal requirements, or adapt to changes in supported platforms and third-party services.</p>
+<p>Where a change materially affects a paid feature or your contractual rights, we will provide the notice and any remedies required by applicable law.</p>
+<p>These Terms do not give us an unrestricted right to remove purchased benefits or reduce mandatory consumer protections.</p>
+<h2>13. Suspension and Termination</h2>
+<p>Where reasonably necessary, we may restrict access to services we operate if you materially breach these Terms, misuse those services, create a security risk, or if restriction is required by law.</p>
+<p>Where appropriate, we will provide notice and an opportunity to resolve the issue before taking action. Immediate action may be necessary in cases involving serious misuse, security risks, or legal obligations.</p>
+<p>You may stop using the App at any time. Cancel any active subscription separately through Apple and export any files you wish to retain before deleting them or uninstalling the App.</p>
+<p>Termination does not remove rights or obligations that arose before termination, including applicable consumer rights.</p>
+<h2>14. Warranties and Consumer Rights</h2>
+<p>We will provide the App with the care and skill required by applicable law.</p>
+<p>Subject to your mandatory legal rights, the App and connected services are provided on an “as available” basis. We do not promise that they will always be uninterrupted, error-free, or compatible with every device or vehicle.</p>
+<p>Nothing in these Terms excludes statutory guarantees, rights concerning the conformity of digital content or services, or other protections that cannot legally be excluded.</p>
+<h2>15. Liability</h2>
+<p>Our responsibility for loss or damage is subject to applicable law.</p>
+<p>To the extent permitted by law, we are not responsible for losses caused by your unlawful use, failure to follow safety instructions, or circumstances outside our reasonable control, except where we remain legally responsible.</p>
+<p>To the extent permitted by law, we exclude liability for indirect or consequential losses and business losses such as lost profits or business interruption.</p>
+<p>Nothing in these Terms excludes or limits liability for fraud, fraudulent misrepresentation, death or personal injury caused by negligence, or any other liability that cannot lawfully be excluded or limited.</p>
+<p>Your responsibilities under these Terms do not excuse us from our own legal obligations.</p>
+<h2>16. Changes to These Terms</h2>
+<p>We may revise these Terms to reflect changes in the App, legal requirements, security needs, or our business operations.</p>
+<p>We will update the date above and provide reasonable advance notice of material changes where required. Notice may be provided within the App or through another appropriate channel.</p>
+<p>Where required by law, we will obtain your agreement before changes take effect. We will not rely solely on continued use where express acceptance is required.</p>
+<p>Changes will not retrospectively remove rights you have already acquired.</p>
+<h2>17. Applicable Rights and Disputes</h2>
+<p>Nothing in these Terms deprives you of mandatory protections under the laws that apply to you as a consumer, including any right to bring a claim in the courts available to you under those laws.</p>
+<p>If a provision is found unenforceable, the remaining provisions will continue to apply to the extent permitted by law.</p>
+
+
+<h2>Navigation, Maps, Weather, and CarPlay</h2>
+<p>Veema may provide route planning, search, directions, turn-by-turn navigation, weather information, and supported CarPlay functionality using Apple technologies and services. Availability, accuracy, and coverage may vary by location, device, vehicle, network conditions, Apple service availability, and other factors outside the Developer’s control.</p>
+<p>Navigation information is provided as an aid only. Always follow traffic laws, road signs, official restrictions, and actual road conditions. Do not interact with Veema in a way that distracts you while driving. CarPlay availability depends on a compatible iPhone, vehicle or aftermarket system, connection, and supported App functionality.</p>
+<h2>Privacy and Data</h2>
+<p>Veema does not operate a Developer-controlled server database for your routes, locations, or navigation history. App content is stored locally on your device or, when you choose supported synchronization or sharing features, through Apple services such as iCloud and CloudKit. Apple services used by Veema may process information under Apple’s own terms and privacy practices. For details, please review Veema’s Privacy Policy.</p>
+<h2>18. Contact Us</h2>
+<p>For questions, support requests, or complaints, contact:</p>
+<p>Developer: Theodora Magiona</p>
+<p>Email: <a href="mailto:support@veema.app">support@veema.app</a></p>
+<p>You can also contact us through the support section inside the App.</p></div>
+    </article>
+  </div>
+
+  <div id="privacy-policy" class="legal-overlay">
+    <a class="legal-backdrop" href="#privacy" aria-label="Close"></a>
+    <article class="legal-sheet"><a class="legal-close" href="#privacy">×</a>
+      <div class="legal-content"><h1>Privacy Policy</h1>
+<p class="updated">Last updated: October 3, 2026</p>
+<p>This Privacy Policy explains how Veema (“the App”), developed and operated by Theodora Magiona (“we”, “our”, or “us”), handles information.</p>
+<h2>1. Overview</h2>
+<p>Veema does not collect, transmit to the Developer, sell, rent, or store your personal data on Developer-operated servers.</p>
+<p>Veema does not use advertising trackers and does not create advertising profiles.</p>
+<p>Information needed for features such as maps, directions, navigation, weather, iCloud synchronization, sharing, purchases, and CarPlay may be processed by Apple through Apple services used by the App. Apple’s own privacy policies and service terms apply to that processing.</p>
+<h2>2. Data Stored on Your Device</h2>
+<p>Routes, locations, contacts, items, reports, and other content you create or import are stored locally on your device unless you choose to use an Apple service such as iCloud or CloudKit.</p>
+<p>The Developer does not receive or have access to this locally stored content.</p>
+<h2>3. iCloud, CloudKit, and Sharing</h2>
+<p>If you choose to use iCloud synchronization or sharing features, supported data is stored and processed using Apple’s iCloud and CloudKit infrastructure.</p>
+<p>The Developer does not operate a separate cloud server for your Veema files and does not receive your Apple Account password or iCloud credentials.</p>
+<p>When you choose to share information with another person through supported Apple sharing features, the information is made available according to the sharing action you initiate and Apple’s CloudKit functionality.</p>
+<h2>4. Location, Maps, Search, Directions, and Navigation</h2>
+<p>When you grant location permission, Veema can use your device’s location to provide features such as showing your position, nearby search, route planning, navigation, and turn-by-turn guidance.</p>
+<p>Location may continue to be used by the App while active navigation is running in the background where permitted by iOS and enabled by you.</p>
+<p>Veema uses Apple frameworks and services, including Core Location and MapKit, to provide these functions. Information necessary to provide Apple-powered maps, search, directions, and related services may be processed by Apple.</p>
+<p>The Developer does not receive or store your location data on Developer-operated servers and does not use your location for advertising or tracking.</p>
+<h2>5. Weather</h2>
+<p>Veema may use Apple-provided weather services or related Apple technologies to display weather information. Information required to provide a requested forecast may be processed by Apple according to Apple’s privacy practices.</p>
+<p>The Developer does not independently collect or store your weather queries or associated location data.</p>
+<h2>6. Apple CarPlay</h2>
+<p>When you use Veema with Apple CarPlay, supported route, stop, navigation, and guidance information may be displayed through the connected CarPlay system.</p>
+<p>CarPlay functionality is provided through Apple technologies and depends on your iPhone, vehicle or aftermarket system, permissions, and connection.</p>
+<p>The Developer does not independently collect information from your vehicle through CarPlay.</p>
+<h2>7. Purchases and Subscriptions</h2>
+<p>Purchases and subscriptions are processed by Apple through the App Store and StoreKit.</p>
+<p>The Developer does not receive or store your payment-card information.</p>
+<p>Veema may receive purchase entitlement information from Apple on your device as necessary to determine which App features are available to you. Payment processing and related account information are handled by Apple.</p>
+<h2>8. Analytics and Diagnostics</h2>
+<p>Veema does not operate its own analytics or tracking service.</p>
+<p>Apple may make diagnostics, crash information, App Store analytics, or other information available to developers according to your Apple settings and Apple’s services. Any such information is collected and processed by Apple under Apple’s privacy practices.</p>
+<p>Veema does not use third-party advertising trackers to monitor your activity across apps or websites.</p>
+<h2>9. Support and Feedback</h2>
+<p>Veema does not automatically collect personal information for support.</p>
+<p>If you voluntarily contact us at <a href="mailto:support@veema.app">support@veema.app</a> or <a href="mailto:feedback@veema.app">feedback@veema.app</a>, we will receive the email address, message, attachments, and other information you choose to send. This information is used only to respond to your communication and provide support or consider your feedback.</p>
+<p>Email is handled through the applicable email service providers rather than through Veema’s own data-collection system.</p>
+<h2>10. Data Retention and Deletion</h2>
+<p>Because the Developer does not maintain a server-side account or database containing your Veema files, there is no Developer-operated account database of route data to delete.</p>
+<p>You control files stored locally through the App and your device. Information stored through iCloud or CloudKit is managed through Veema and Apple’s services, subject to Apple’s functionality and policies.</p>
+<p>If you have voluntarily provided personal information by contacting support or feedback, you may request deletion of information retained in that correspondence by contacting <a href="mailto:support@veema.app">support@veema.app</a>, subject to any information we may be required to retain by law.</p>
+<h2>11. Children’s Privacy</h2>
+<p>Veema is not directed to children under 13. The Developer does not knowingly collect personal information from children through the App.</p>
+<h2>12. Apple Services and Privacy</h2>
+<p>Veema relies on Apple technologies and services that may include Core Location, MapKit, iCloud, CloudKit, StoreKit, CarPlay, and Apple-provided weather services.</p>
+<p>Apple may process information when you use these services. That processing is governed by Apple’s applicable privacy policies and terms.</p>
+<p>Apple’s Privacy Policy is available at:</p>
+<p><a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">https://www.apple.com/legal/privacy/</a></p>
+<h2>13. Your Privacy Choices</h2>
+<p>You can control permissions granted to Veema, including location access, through iOS Settings.</p>
+<p>You can manage iCloud and other Apple services through your Apple Account and device settings.</p>
+<p>Because Veema does not maintain a Developer-operated user account or server database of your route information, most App data remains directly under your control on your device or through the Apple services you choose to use.</p>
+<h2>14. Changes to This Privacy Policy</h2>
+<p>We may update this Privacy Policy if Veema’s functionality, Apple services, or applicable legal requirements change. The “Last updated” date will be revised when changes are made.</p>
+<h2>15. Contact Us</h2>
+<p>For privacy questions or requests:</p>
+<p>Developer: Theodora Magiona</p>
+<p>Email: <a href="mailto:support@veema.app">support@veema.app</a></p></div>
+    </article>
+  </div>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-brand"><strong>Veema</strong><span>© 2026 Veema — Theodora Magiona</span></div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#privacy-policy">Privacy Policy</a>
+        <a href="#terms-of-service">Terms of Service</a>
+        <a href="mailto:support@veema.app">Support</a>
+        <a href="mailto:feedback@veema.app">Feedback</a>
+        <a href="https://apps.apple.com/gr/app/veema-route-planner/id1424376233" target="_blank" rel="noopener">App Store</a>
+      </nav>
+    </div>
+    <div class="wrap apple-note">Apple, the Apple logo, App Store, iPhone and CarPlay are trademarks of Apple Inc., registered in the U.S. and other countries and regions.</div>
+  </footer>
+</body>
+</html>
